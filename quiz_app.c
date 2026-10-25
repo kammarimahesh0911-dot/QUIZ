@@ -1,12 +1,12 @@
 /* 
    Compile: gcc quiz_app.c -o quiz_app
-   Run: ./quiz_app                                       */
+   Run: ./quiz_app   (PowerShell: .\quiz_app)               */
 
 #include <stdio.h>
 
 //#define tells the compiler to replace a name with the assigned value (or) it gives a name to a fixed value.
 #define TOTAL 5
-#define SCORE_FILE "scores.txt" //"score.txt" is the name of the strings ka file where the scores will be saved.
+#define SCORE_FILE "scores.txt" //"scores.txt" is the name of the file where the scores will be saved.
 
 
 
@@ -24,9 +24,23 @@ struct Question quiz[TOTAL] = {
 //"quiz" is an array of user defined datatype "Question" which holds the questions and their options. Each question is stored as a structure with its text, options, and correct answer.
 
     // {"Question", {"option1", "option2", "option3", "option4"}, 'correct_option'},-----We shall use this format to frame the questions.
-    // After we finalize what questions to be added.
+    // PLACEHOLDER questions below - replace them after the team finalizes the questions.
+    // Keep exactly TOTAL (5) entries and 'correct_option' as an uppercase 'A', 'B', 'C' or 'D'.
+
+    {"Which header file is needed for printf()?", {"stdlib.h", "stdio.h", "string.h", "math.h"}, 'B'},
+    {"Which symbol ends a statement in C?", {";", ":", ".", ","}, 'A'},
+    {"Which keyword is used to define a structure?", {"class", "union", "struct", "object"}, 'C'},
+    {"Which function is used to open a file in C?", {"open()", "fread()", "fscanf()", "fopen()"}, 'D'},
+    {"Which format specifier prints an integer?", {"%d", "%f", "%c", "%s"}, 'A'},
 
 };
+
+void clearLine(void)                      /* throw away the rest of the line */
+{
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+}
 
 int getChoice(void)                       /* read a menu number safely */
 {
@@ -40,7 +54,8 @@ int getChoice(void)                       /* read a menu number safely */
 
 char getAnswer(void)                      /* keep asking until A, B, C or D */
 {
-    char c, next;
+    char c;
+    int next;                             /* int, because getchar() returns an int */
     while (1) {
         printf("  Your answer (A-D): ");
         if (scanf(" %c", &c) != 1)
